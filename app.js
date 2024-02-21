@@ -15,6 +15,10 @@ function sendMessage() {
     messageInput.value = "";
   }
 }
+function clearMessages() {
+  const messagesList = document.getElementById("messages");
+  messagesList.innerHTML = "";
+}
 function formatTime(hours, minutes) {
   const ampm = hours > 12 ? "PM" : "AM";
   const formattedHours = hours % 12 || 12;
@@ -26,16 +30,21 @@ function formatTime(hours, minutes) {
 socket.on("chat message", (message) => {
   const messagesList = document.getElementById("messages");
   const li = document.createElement("li");
+  //time stamp
   const timeStampElement = document.createElement("span");
   const timestamp = formatTime(
     currentDate.getHours(),
     currentDate.getMinutes()
   );
-
   timeStampElement.classList.add("timestamp");
   timeStampElement.textContent = timestamp;
+  //message
+  const messageElement = document.createElement("span");
+  messageElement.classList.add("message");
+  messageElement.textContent = message;
 
-  li.appendChild(document.createTextNode(message + " "));
+  li.appendChild(messageElement);
+  li.appendChild(document.createTextNode(" ")); // Add space between message and timestamp
   li.appendChild(timeStampElement);
   messagesList.appendChild(li);
 });
