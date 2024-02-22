@@ -11,7 +11,7 @@ body {
 }
 li {
   list-style-type: none;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 #chat-container {
@@ -51,4 +51,8 @@ button {
   background-color: rgb(56, 76, 255);
   border-radius: 10px;
   padding: 10px;
+  display: inline-block;
+  word-wrap: break-word; /* Enable word wrapping */
+  overflow-wrap: break-word; /* Enable word wrapping */
+  max-width: 100%;
 }
