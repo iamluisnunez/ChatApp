@@ -16,25 +16,30 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("A user connected");
+  let userID = "";
 
-  //creating a userID
-  const userID = socket.id;
+  // Listen for user join event
+  socket.on("user joined", (username) => {
+    // Creating a userID
+    userID = socket.id;
 
-  //add the users to the map
-  connectedUsers.set(userID, socket);
+    // Add the user to the map with the username
+    connectedUsers.set(userID, { socket, username });
 
-  //broadcast to all channels the a new users joined
-  io.emit("chat message", {
-    userId: userID,
-    message: "has joined the chat",
-    type: "join",
+    // Broadcast to all channels that a new user has joined
+    io.emit("chat message", {
+      userId: userID,
+      username: "Server", // Displayed as "Server" for system messages
+      message: `${username} has joined the chat`,
+      type: "join",
+    });
   });
-
   // Listen for incoming messages
   socket.on("chat message", (message) => {
     // Broadcast the message to all connected clients
     io.emit("chat message", {
       userId: userID,
+      username: connectedUsers.get(userID).username, // Get the username associated with the userID
       message: message,
       type: "regular-message",
     });

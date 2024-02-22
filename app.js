@@ -27,7 +27,7 @@ function formatTime(hours, minutes) {
 }
 
 // Listen for incoming messages
-socket.on("chat message", ({ userId, message, type }) => {
+socket.on("chat message", ({ userId, username, message, type }) => {
   const messagesList = document.getElementById("messages");
   const li = document.createElement("li");
   //Checking for type of message
@@ -51,10 +51,27 @@ socket.on("chat message", ({ userId, message, type }) => {
   //message
   const messageElement = document.createElement("span");
   messageElement.classList.add("message", messageClass);
-  messageElement.textContent = `${userId}: ${message}`;
+  messageElement.textContent = `${username || userId}: ${message}`;
 
   li.appendChild(messageElement);
   li.appendChild(document.createTextNode(" ")); // Add space between message and timestamp
   li.appendChild(timeStampElement);
   messagesList.appendChild(li);
+});
+
+//listen for the form submission
+
+const nameForm = document.getElementById("name-form");
+nameForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const usernameInput = document.getElementById("username");
+  const username = usernameInput.value.trim();
+
+  if (username) {
+    socket.emit("user joined", username);
+  }
+  const nameFormContainer = document.getElementById("name-form-container");
+
+  nameFormContainer.style.display = "none";
 });
