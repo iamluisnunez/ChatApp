@@ -17,7 +17,9 @@
         placeholder="Type your message..."
       />
       <button onClick="sendMessage()">Send</button>
-      <button onClick="clearMessages()">Clear</button>
+      <div class="clear-button">
+        <button onClick="clearMessages()">Clear</button>
+      </div>
     </div>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="/app.js"></script>

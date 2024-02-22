@@ -27,9 +27,19 @@ function formatTime(hours, minutes) {
 }
 
 // Listen for incoming messages
-socket.on("chat message", (message) => {
+socket.on("chat message", ({ userId, message, type }) => {
   const messagesList = document.getElementById("messages");
   const li = document.createElement("li");
+  //Checking for type of message
+  let messageClass = "";
+
+  if (type === "join") {
+    messageClass = "join-message";
+  } else if (type === "disconnect") {
+    messageClass = "disconnect-message";
+  } else {
+    messageClass = "regular-message";
+  }
   //time stamp
   const timeStampElement = document.createElement("span");
   const timestamp = formatTime(
@@ -40,8 +50,8 @@ socket.on("chat message", (message) => {
   timeStampElement.textContent = timestamp;
   //message
   const messageElement = document.createElement("span");
-  messageElement.classList.add("message");
-  messageElement.textContent = message;
+  messageElement.classList.add("message", messageClass);
+  messageElement.textContent = `${userId}: ${message}`;
 
   li.appendChild(messageElement);
   li.appendChild(document.createTextNode(" ")); // Add space between message and timestamp

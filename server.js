@@ -24,19 +24,32 @@ io.on("connection", (socket) => {
   connectedUsers.set(userID, socket);
 
   //broadcast to all channels the a new users joined
-  io.emit("chat message", `${userID} has joined the chat`);
+  io.emit("chat message", {
+    userId: userID,
+    message: "has joined the chat",
+    type: "join",
+  });
 
   // Listen for incoming messages
   socket.on("chat message", (message) => {
     // Broadcast the message to all connected clients
-    io.emit("chat message", `${userID}: ${message}`);
+    io.emit("chat message", {
+      userId: userID,
+      message: message,
+      type: "regular-message",
+    });
   });
 
   // Handle disconnection
   socket.on("disconnect", () => {
     console.log("User disconnected");
     connectedUsers.delete(userID);
-    io.emit(`${userID} has disconnected from the chat`);
+    // Broadcast that the user has disconnected along with the user ID and type
+    io.emit("chat message", {
+      userId: userID,
+      message: "has disconnected from the chat",
+      type: "disconnect",
+    });
   });
 });
 app.get("/socket.io/socket.io.js", (req, res) => {
