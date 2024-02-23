@@ -37,14 +37,28 @@ li {
   margin-bottom: 10px;
 }
 #night-mode-container {
+  position: relative;
+  top: -50px; /* Adjust this value as needed */
   padding: 20px;
 }
 #toggle-night-mode {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: flex-end; /* Align items horizontally at the end (right) */
+  width: 60px;
   padding: 8px;
   cursor: pointer;
   border-radius: 10px;
   background-color: var(--button-bg-color-day);
   color: var(--button-text-color-day);
+}
+#name-label {
+  color: black; /* Set the default color */
+}
+
+/* Night mode styles for the label */
+.night-mode #name-label {
+  color: white; /* Set the color for night mode */
 }
 #chat-container {
   width: 400px;
@@ -64,6 +78,11 @@ li {
 
 #message-input {
   width: 70%;
+  padding: 8px;
+  border-radius: 15px;
+}
+#username {
+  width: 40%;
   padding: 8px;
   border-radius: 10px;
 }

@@ -5,9 +5,13 @@ const currentDate = new Date();
 // JavaScript code to toggle night mode
 const toggleNightModeButton = document.getElementById("toggle-night-mode");
 const body = document.body;
+const chatContainer = document.getElementById("chat-container");
+const nameLabel = document.getElementById("name-label");
 
 document.getElementById("toggle-night-mode").addEventListener("click", () => {
   document.body.classList.toggle("night-mode");
+  chatContainer.classList.toggle("night-mode");
+  nameLabel.classList.toggle("night-mode");
 });
 
 // Handle form submission
