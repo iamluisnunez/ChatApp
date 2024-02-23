@@ -48,13 +48,18 @@ io.on("connection", (socket) => {
   // Handle disconnection
   socket.on("disconnect", () => {
     console.log("User disconnected");
-    connectedUsers.delete(userID);
-    // Broadcast that the user has disconnected along with the user ID and type
-    io.emit("chat message", {
-      userId: userID,
-      message: "has disconnected from the chat",
-      type: "disconnect",
-    });
+    const user = connectedUsers.get(userID);
+    if (user) {
+      const { username } = user;
+      connectedUsers.delete(userID);
+      // Broadcast that the user has disconnected along with the user ID and type
+      io.emit("chat message", {
+        userId: userID,
+        username: "Server",
+        message: `${username} has disconnected from the chat`,
+        type: "disconnect",
+      });
+    }
   });
 });
 app.get("/socket.io/socket.io.js", (req, res) => {
