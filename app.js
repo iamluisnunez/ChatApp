@@ -2,6 +2,14 @@
 const socket = io();
 const currentDate = new Date();
 
+// JavaScript code to toggle night mode
+const toggleNightModeButton = document.getElementById("toggle-night-mode");
+const body = document.body;
+
+document.getElementById("toggle-night-mode").addEventListener("click", () => {
+  document.body.classList.toggle("night-mode");
+});
+
 // Handle form submission
 function sendMessage() {
   const messageInput = document.getElementById("message-input");
