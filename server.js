@@ -69,3 +69,5 @@ app.get("/socket.io/socket.io.js", (req, res) => {
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+console.log('This is just a tst')hsdohfthis just a test

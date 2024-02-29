@@ -70,6 +70,8 @@ li {
 }
 
 #chat-output {
+  display: flex;
+  flex-direction: column;
   height: 400px;
   overflow-y: scroll;
   border-bottom: 1px solid #ccc;
@@ -102,6 +104,7 @@ button {
   font-size: 0.8em; /* Adjust the font size as needed */
   color: #888; /* Optionally, adjust the color or other styles */
   margin-left: 5px; /* Add some left margin for spacing */
+  display: inline-block;
 }
 .message {
   font-family: "Fredoka", sans-serif;
